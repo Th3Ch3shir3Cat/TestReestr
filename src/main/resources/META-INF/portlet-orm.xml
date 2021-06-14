@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.docs.servicebuilder.model.impl.BankModelImpl">
+		<attributes>
+			<id name="bankId" />
+			<basic name="name" />
+			<basic name="bik" />
+			<basic name="address" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.docs.servicebuilder.model.impl.PositionModelImpl">
+		<attributes>
+			<id name="positionId" />
+			<basic name="name" />
+			<basic name="archived" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.docs.servicebuilder.model.impl.WorkerModelImpl">
+		<attributes>
+			<id name="workerId" />
+			<basic name="firstName" />
+			<basic name="middleName" />
+			<basic name="lastName" />
+			<basic name="gender" />
+			<basic name="dateOfBirth" />
+			<basic name="positionId" />
+			<basic name="employmentDate" />
+			<basic name="salaryLevel" />
+			<basic name="numberWorkPhone" />
+			<basic name="numberHomePhone" />
+			<basic name="bankId" />
+			<basic name="archived" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.liferay.docs.servicebuilder.model.impl.BankImpl" name="Bank">
+		<table name="Event_Bank" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.docs.servicebuilder.model.impl.PositionImpl" name="Position">
+		<table name="Event_Position" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.docs.servicebuilder.model.impl.WorkerImpl" name="Worker">
+		<table name="Event_Worker" />
+		<attributes />
+	</entity>
+</entity-mappings>

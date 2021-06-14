@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+<service-builder package-path="com.liferay.docs.servicebuilder">
+    <author>gerbe</author>
+    <namespace>Event</namespace>
+
+    <entity name="Position" local-service="true" remote-service="false">
+
+        <!-- PK fields -->
+
+        <column name="positionId" type="long" primary="true" />
+
+        <!-- Other fields -->
+
+        <column name="name" type="String" />
+        <column name="archived" type="Boolean" />
+
+        <!-- Order -->
+
+        <order by="asc">
+            <order-column name="name" />
+        </order>
+    </entity>
+
+    <entity name="Bank" local-service="true" remote-service="false">
+
+        <!-- PK fields -->
+
+        <column name="bankId" type="long" primary="true" />
+
+        <!-- Other fields -->
+
+        <column name="name" type="String" />
+        <column name="bik" type="String" />
+        <column name="address" type="String" />
+
+        <!-- Order -->
+
+        <order by="asc">
+            <order-column name="name" />
+        </order>
+    </entity>
+
+    <entity name="Worker" local-service="true" remote-service="false">
+
+        <!-- PK fields -->
+
+        <column name="workerId" type="long" primary="true" />
+
+        <!-- Other fields -->
+        <column name="firstName" type="String" />
+        <column name="middleName" type="String" />
+        <column name="lastName" type="String" />
+
+        <column name="gender" type="String"/>
+        <column name="dateOfBirth" type="String"/>
+        <column name="positionId" type="long"/>
+        <column name="employmentDate" type="String"/>
+        <column name="salaryLevel" type="String"/>
+        <column name="numberWorkPhone" type="String"/>
+        <column name="numberHomePhone" type="String"/>
+        <column name="bankId" type="long"/>
+        <column name="archived" type="boolean"/>
+        <!-- Order -->
+        <order by="asc">
+              <order-column name="firstName" />
+        </order>
+
+        <!-- Finder methods -->
+
+        <finder name="BankId" return-type="Bank">
+            <finder-column name="bankId" />
+        </finder>
+        <finder name="PositionId" return-type="Position">
+            <finder-column name="positionId" />
+        </finder>
+    </entity>
+
+</service-builder>
