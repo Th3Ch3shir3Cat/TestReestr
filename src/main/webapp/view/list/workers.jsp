@@ -4,7 +4,10 @@
 <%@ page import="com.liferay.docs.servicebuilder.model.Bank" %>
 <%@ page import="com.liferay.docs.servicebuilder.service.BankLocalServiceUtil" %>
 <%@ page import="com.liferay.docs.servicebuilder.model.Position" %>
-<%@ page import="com.liferay.docs.servicebuilder.service.PositionLocalServiceUtil" %><%--
+<%@ page import="com.liferay.docs.servicebuilder.service.PositionLocalServiceUtil" %>
+<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
+<%@ page import="javax.portlet.PortletURL" %>
+<%@ page import="com.liferay.portal.service.persistence.PortletUtil" %><%--
   Created by IntelliJ IDEA.
   User: gerbe
   Date: 12.06.2021
@@ -17,11 +20,21 @@
 <html>
 <head>
   <title>
-
+    Workers
   </title>
 </head>
 <body>
+
+<aui:form action="<%=searchWorker%>" name="<portlet:namespace />fm" class="form-horizontal">
+  <aui:fieldset>
+    <aui:input id="fio" name="fio" class="date-selector" label="ФИО"/>
+    <aui:input id="startDate" name="startDate" class="date-selector" label="Дата от:"/>
+    <aui:input id="finishDate" name="finishDate" class="date-selector" label="Дата до:"/>
+  <button type="submit" class = "btn btn-primary">Поиск по дате</button>
+  </aui:fieldset>
+</aui:form>
 <table class="table table-striped">
+
   <thead>
   <th>#</th>
   <th>Фамилия</th>
@@ -40,7 +53,13 @@
   </thead>
   <tbody>
   <%
-    List<Worker> workers = WorkerLocalServiceUtil.findAll();
+    List<Worker> workers = null;
+    if((List<Worker>)request.getAttribute("workers") != null){
+      workers = (List<Worker>)request.getAttribute("workers");
+    }
+    else {
+     workers=WorkerLocalServiceUtil.findAll();
+    }
     for(Worker worker : workers){
   %>
   <tr>
@@ -83,3 +102,40 @@
 <a class = "btn btn-primary" href="${mainPage}"><i class="icon-home icon-white"></i> Главная</a>
 </body>
 </html>
+
+
+<aui:script>
+  var datePicker;
+  var finishPicker;
+  AUI().use('aui-datepicker', function(Y) {
+    new Y.DatePicker({
+      trigger: '#<portlet:namespace />startDate',
+      popover: {
+        zIndex: 10,
+      },
+        mask: '%d.%m.%Y',
+      calendar: {
+          dateformat: '%d.%m.%Y',
+        maximumDate: new Date()
+      }
+    });
+  });
+  AUI().use('aui-datepicker', function(Y) {
+    new Y.DatePicker({
+      trigger: '#<portlet:namespace />finishDate',
+      popover: {
+        zIndex: 10,
+      },
+  mask: '%d.%m.%Y',
+      calendar: {
+  dateformat: '%d.%m.%Y',
+        maximumDate: new Date()
+      }
+    });
+  });
+
+
+  function filter(){
+
+  }
+</aui:script>

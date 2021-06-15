@@ -3,7 +3,6 @@ package view;
 import com.liferay.counter.service.CounterLocalService;
 import com.liferay.docs.servicebuilder.NoSuchBankException;
 import com.liferay.docs.servicebuilder.NoSuchPositionException;
-import com.liferay.docs.servicebuilder.service.persistence.PositionPersistence;
 import com.liferay.docs.servicebuilder.service.persistence.WorkerPersistence;
 import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -13,10 +12,7 @@ import serviceUtil.PositionUtil;
 import serviceUtil.WorkUtil;
 
 import javax.portlet.ActionRequest;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Worker {
 
@@ -78,6 +74,15 @@ public class Worker {
 
     public String getLastName() {
         return lastName;
+    }
+
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public void setLastName(String lastName) {
@@ -174,6 +179,7 @@ public class Worker {
         worker.setMiddleName(middleName);
         worker.setLastName(lastName);
         worker.setDateOfBirth(dateOfBirth);
+        worker.setGender(gender);
         worker.setPositionId(position.getPositionId());
         worker.setEmploymentDate(employmentDate);
         worker.setSalaryLevel(salaryLevel);
@@ -183,7 +189,7 @@ public class Worker {
         worker.setArchived(is_archived);
     }
 
-    private void setFio(String fio){
+    public void setFio(String fio){
         String[] fioMas = fio.split(" ");
         if(fioMas.length > 0){
             this.firstName = fioMas[0];

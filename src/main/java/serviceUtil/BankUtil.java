@@ -15,7 +15,6 @@ public class BankUtil {
             bank.setBik(bankFromDatabase.getBik());
             bank.setAddress(bankFromDatabase.getAddress());
             bank.setName(bankFromDatabase.getName());
-            System.out.println(bank.getName());
             return bank;
         }
         return null;

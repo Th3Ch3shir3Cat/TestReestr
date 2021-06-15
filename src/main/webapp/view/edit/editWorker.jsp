@@ -6,6 +6,9 @@
 <%@ page import="com.liferay.docs.servicebuilder.model.Worker" %>
 <%@ page import="com.liferay.docs.servicebuilder.service.WorkerLocalServiceUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%--
   Created by IntelliJ IDEA.
   User: gerbe
@@ -18,6 +21,7 @@
 
 <%
     Worker worker = WorkerLocalServiceUtil.findById(ParamUtil.getLong(request,"workerId"));
+    List<Worker> workers = WorkerLocalServiceUtil.findAll();
     List<Position> positions = PositionLocalServiceUtil.findAll();
     List<Bank> banks = BankLocalServiceUtil.findAll();
     String fio = worker.getFirstName() + " " + worker.getMiddleName() + " " + worker.getLastName();
@@ -38,22 +42,39 @@
             <aui:input label="Уровень зарплаты" type="text" name="salaryLevel" value="<%=worker.getSalaryLevel()%>">
                 <aui:validator name="required" errorMessage="Заполните поле"/>
             </aui:input>
-            <aui:input label="Муж." id = "men" name="male" type="radio" checked='<%=worker.getGender().equals("Муж.")%>'/>
-            <aui:input label="Жен." id = "women" name="male" type="radio" checked='<%=worker.getGender().equals("Жен.")%>'/>
-            <aui:input label="Дата рождения" name="dateOfBirth" type="date" value="<%=worker.getDateOfBirth()%>">
+            <aui:input label="Муж." value="Муж." name="male" type="radio" checked='<%=worker.getGender().equals("Муж.")%>'/>
+            <aui:input label="Жен." value="Жен." name="male" type="radio" checked='<%=worker.getGender().equals("Жен.")%>'/>
+            <%
+                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                Date date = dateFormat.parse(worker.getDateOfBirth());
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            %>
+            <aui:input label="Дата рождения" name="dateOfBirth" type="date" value="<%=dateFormat.format(date)%>">
                 <aui:validator name="required" errorMessage="Заполните поле"/>
             </aui:input>
             <aui:select name="positionId" label="Должность">
                 <%
                     for(Position position : positions){
+                        boolean exist = false;
+                        for(Worker tmpWorker : workers){
+                            if(tmpWorker.getPositionId() == position.getPositionId() && tmpWorker.getWorkerId() != worker.getWorkerId())
+                                exist = true;
+                        }
+                        if(!exist){
                 %>
                 <aui:option value="<%=position.getPositionId()%>"
-                            selected="<%=worker.getPositionId() == position.getPositionId()%>"><%=position.getName()%>></aui:option>
+                            selected="<%=worker.getPositionId() == position.getPositionId()%>"><%=position.getName()%></aui:option>
                 <%
+                    }
                     }
                 %>
             </aui:select>
-            <aui:input label="Дата трудоустройства" name="employmentDate" type="date" value="<%=worker.getEmploymentDate()%>">
+            <%
+                dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                date = dateFormat.parse(worker.getEmploymentDate());
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            %>
+            <aui:input label="Дата трудоустройства" name="employmentDate" type="date" value="<%=dateFormat.format(date)%>">
                 <aui:validator name="required" errorMessage="Заполните поле"/>
             </aui:input>
             <aui:input label="Номер рабочего телефона" type="text" id="numberWorkPhone" name="numberWorkPhone" value="<%=worker.getNumberWorkPhone()%>"/>

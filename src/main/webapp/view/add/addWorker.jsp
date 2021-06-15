@@ -3,6 +3,8 @@
 <%@ page import="com.liferay.docs.servicebuilder.service.PositionLocalServiceUtil" %>
 <%@ page import="com.liferay.docs.servicebuilder.model.Bank" %>
 <%@ page import="com.liferay.docs.servicebuilder.service.BankLocalServiceUtil" %>
+<%@ page import="com.liferay.docs.servicebuilder.service.WorkerLocalServiceUtil" %>
+<%@ page import="com.liferay.docs.servicebuilder.model.Worker" %>
 <%--
   Created by IntelliJ IDEA.
   User: gerbe
@@ -16,6 +18,7 @@
 <%
   List<Position> positions = PositionLocalServiceUtil.findAll();
   List<Bank> banks = BankLocalServiceUtil.findAll();
+  List<Worker> workers = WorkerLocalServiceUtil.findAll();
 %>
 
 <html>
@@ -32,17 +35,24 @@
       <aui:input label="Уровень зарплаты" type="text" name="salaryLevel">
         <aui:validator name="required" errorMessage="Заполните поле"/>
       </aui:input>
-      <aui:input label="Муж." name="male" type="radio" checked="true"/>
-      <aui:input label="Жен." name="male" type="radio"/>
+      <aui:input label="Муж." value="Муж." name="male" type="radio" checked="true"/>
+      <aui:input label="Жен." value="Жен." name="male" type="radio"/>
       <aui:input label="Дата рождения" name="dateOfBirth" type="date">
         <aui:validator name="required" errorMessage="Заполните поле"/>
       </aui:input>
       <aui:select name="positionId" label="Должность">
         <%
           for(Position position : positions){
+            boolean exist = false;
+            for(Worker tmpWorker : workers){
+              if(tmpWorker.getPositionId() == position.getPositionId())
+                exist = true;
+            }
+            if(!exist){
         %>
-          <aui:option value="<%=position.getPositionId()%>"><%=position.getName()%>></aui:option>
+          <aui:option value="<%=position.getPositionId()%>"><%=position.getName()%></aui:option>
         <%
+          }
           }
         %>
       </aui:select>

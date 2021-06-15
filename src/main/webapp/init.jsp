@@ -13,6 +13,7 @@
 
 <portlet:actionURL var="actionAddPosition" name = "actionAddPosition"/>
 <portlet:actionURL var="actionEditPosition" name = "actionEditPosition"/>
+<portlet:actionURL var="searchWorker" name = "searchWorker"/>
 
 <portlet:actionURL var="actionAddBank" name = "actionAddBank"/>
 <portlet:actionURL var="actionEditBank" name = "actionEditBank"/>
